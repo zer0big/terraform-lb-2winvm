@@ -46,19 +46,19 @@ resource "azurerm_lb_backend_address_pool" "zero-bepool" {
 #   loadbalancer_id = data.azurerm_lb.data-lb.id
 # }
 
-resource "azurerm_lb_backend_address_pool_address" "web-win-vm1_address" {
-  name                    = "web-win-vm1"
-  backend_address_pool_id = azurerm_lb_backend_address_pool.zero-bepool.id
-  virtual_network_id      = azurerm_virtual_network.zero-vnet.id
-  ip_address              = azurerm_network_interface.zero-nic1.private_ip_address
-}
+# resource "azurerm_lb_backend_address_pool_address" "web-win-vm1_address" {
+#   name                    = "web-win-vm1"
+#   backend_address_pool_id = azurerm_lb_backend_address_pool.zero-bepool.id
+#   virtual_network_id      = azurerm_virtual_network.zero-vnet.id
+#   ip_address              = azurerm_network_interface.zero-nic.private_ip_address
+# }
 
-resource "azurerm_lb_backend_address_pool_address" "web-win-vm2_address" {
-  name                    = "web-win-vm2"
-  backend_address_pool_id = azurerm_lb_backend_address_pool.zero-bepool.id
-  virtual_network_id      = azurerm_virtual_network.zero-vnet.id
-  ip_address              = azurerm_network_interface.zero-nic2.private_ip_address
-}
+# resource "azurerm_lb_backend_address_pool_address" "web-win-vm2_address" {
+#   name                    = "web-win-vm2"
+#   backend_address_pool_id = azurerm_lb_backend_address_pool.zero-bepool.id
+#   virtual_network_id      = azurerm_virtual_network.zero-vnet.id
+#   ip_address              = azurerm_network_interface.zero-nic2.private_ip_address
+# }
 
 resource "azurerm_lb_probe" "zero-lb-probe" {
   loadbalancer_id = azurerm_lb.zero-lb.id
@@ -76,7 +76,7 @@ resource "azurerm_lb_rule" "zero-lb-rule" {
   frontend_port                  = 80
   backend_port                   = 80
   frontend_ip_configuration_name = "LB-FrontEnd-IP"
-  backend_address_pool_ids       = [ azurerm_lb_backend_address_pool.zero-bepool.id ]
+  backend_address_pool_ids       = [azurerm_lb_backend_address_pool.zero-bepool.id]
   probe_id                       = azurerm_lb_probe.zero-lb-probe.id
   depends_on = [
     azurerm_lb.zero-lb,
